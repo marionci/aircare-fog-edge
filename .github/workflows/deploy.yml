@@ -41,5 +41,11 @@ jobs:
           aws s3 cp dist/aircare-dashboard/browser/index.html s3://${{ secrets.AWS_S3_BUCKET }}/index.html \
             --cache-control "no-cache"
 
+      - name: Invalidate CloudFront cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+            --paths "/*"
+
       - name: Done
-        run: echo "✅ Deployed to s3://${{ secrets.AWS_S3_BUCKET }}"
+        run: echo "✅ Deployed to CloudFront"
