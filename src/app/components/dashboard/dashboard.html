@@ -1,0 +1,125 @@
+<div class="dashboard">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <h1>Air Care</h1>
+      <span class="subtitle">Fog & Edge Computing Dashboard</span>
+    </div>
+    <div class="header-right">
+      <span class="status-badge" [ngClass]="getStatusClass()">
+        {{ status }}
+      </span>
+      <span class="last-update" *ngIf="lastUpdate">
+        Last update: {{ lastUpdate }}
+      </span>
+    </div>
+  </header>
+
+  <!-- No data yet -->
+  <div class="no-data" *ngIf="!latest">
+    <div class="spinner"></div>
+    <p>Waiting for sensor data...</p>
+  </div>
+
+  <!-- Sensor cards -->
+  <div class="cards" *ngIf="latest">
+
+    <!-- Temperature -->
+    <div class="card" [class.alert]="isAlert('temperature_c')">
+      <div class="card-icon">🌡️</div>
+      <div class="card-title">Temperature</div>
+      <div class="card-value">
+        {{ getSensorValue('temperature_c', 'avg') | number:'1.1-1' }}°C
+      </div>
+      <div class="card-stats">
+        <span>Min: {{ getSensorValue('temperature_c', 'min') | number:'1.1-1' }}°C</span>
+        <span>Max: {{ getSensorValue('temperature_c', 'max') | number:'1.1-1' }}°C</span>
+      </div>
+      <div class="alert-badge" *ngIf="isAlert('temperature_c')">⚠️ Alert</div>
+    </div>
+
+    <!-- Humidity -->
+    <div class="card" [class.alert]="isAlert('humidity_pct')">
+      <div class="card-icon">💧</div>
+      <div class="card-title">Humidity</div>
+      <div class="card-value">
+        {{ getSensorValue('humidity_pct', 'avg') | number:'1.1-1' }}%
+      </div>
+      <div class="card-stats">
+        <span>Min: {{ getSensorValue('humidity_pct', 'min') | number:'1.1-1' }}%</span>
+        <span>Max: {{ getSensorValue('humidity_pct', 'max') | number:'1.1-1' }}%</span>
+      </div>
+      <div class="alert-badge" *ngIf="isAlert('humidity_pct')">⚠️ Alert</div>
+    </div>
+
+    <!-- CO2 -->
+    <div class="card" [class.alert]="isAlert('co2_ppm')">
+      <div class="card-icon">💨</div>
+      <div class="card-title">CO2 / Air Quality</div>
+      <div class="card-value">
+        {{ getSensorValue('co2_ppm', 'avg') | number:'1.0-0' }} ppm
+      </div>
+      <div class="card-stats">
+        <span>Min: {{ getSensorValue('co2_ppm', 'min') | number:'1.0-0' }}</span>
+        <span>Max: {{ getSensorValue('co2_ppm', 'max') | number:'1.0-0' }}</span>
+      </div>
+      <div class="alert-badge" *ngIf="isAlert('co2_ppm')">⚠️ Alert</div>
+    </div>
+
+    <!-- PM2.5 -->
+    <div class="card" [class.alert]="isAlert('pm25_ugm3')">
+      <div class="card-icon">🌫️</div>
+      <div class="card-title">PM2.5 Dust</div>
+      <div class="card-value">
+        {{ getSensorValue('pm25_ugm3', 'avg') | number:'1.1-1' }} µg/m³
+      </div>
+      <div class="card-stats">
+        <span>Min: {{ getSensorValue('pm25_ugm3', 'min') | number:'1.1-1' }}</span>
+        <span>Max: {{ getSensorValue('pm25_ugm3', 'max') | number:'1.1-1' }}</span>
+      </div>
+      <div class="alert-badge" *ngIf="isAlert('pm25_ugm3')">⚠️ Alert</div>
+    </div>
+
+  </div>
+
+  <!-- Alert banner -->
+  <div class="alert-banner" *ngIf="latest?.any_alert">
+    ⚠️ One or more sensors exceed safe thresholds!
+  </div>
+
+  <!-- Recent readings table -->
+  <div class="table-section" *ngIf="readings.length > 0">
+    <h2>Recent Readings</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Temp (°C)</th>
+          <th>Humidity (%)</th>
+          <th>CO2 (ppm)</th>
+          <th>PM2.5 (µg/m³)</th>
+          <th>Samples</th>
+          <th>Alert</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of readings" [class.alert-row]="r.any_alert">
+          <td>{{ r.timestamp | date:'HH:mm:ss' }}</td>
+          <td>{{ r.sensors.temperature_c.avg | number:'1.1-1' }}</td>
+          <td>{{ r.sensors.humidity_pct.avg | number:'1.1-1' }}</td>
+          <td>{{ r.sensors.co2_ppm.avg | number:'1.0-0' }}</td>
+          <td>{{ r.sensors.pm25_ugm3.avg | number:'1.1-1' }}</td>
+          <td>{{ r.sample_count }}</td>
+          <td>{{ r.any_alert ? '⚠️' : '✅' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>Air Care — Fog & Edge Computing Project | NCI MSc Cloud Computing 2026</p>
+  </footer>
+
+</div>
