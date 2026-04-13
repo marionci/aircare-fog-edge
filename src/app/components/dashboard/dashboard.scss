@@ -214,3 +214,27 @@ footer {
   padding-top: 16px;
   border-top: 1px solid $border;
 }
+
+.card-threshold {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  font-size: 0.8rem;
+}
+
+.threshold-label {
+  color: #999;
+}
+
+.threshold-value {
+  font-weight: 600;
+  color: #f0a500;
+}
+
+.card.alert .threshold-value {
+  color: #ff4444;
+}
