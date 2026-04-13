@@ -25,61 +25,77 @@
   <!-- Sensor cards -->
   <div class="cards" *ngIf="latest">
 
-    <!-- Temperature -->
-    <div class="card" [class.alert]="isAlert('temperature_c')">
-      <div class="card-icon">🌡️</div>
-      <div class="card-title">Temperature</div>
-      <div class="card-value">
-        {{ getSensorValue('temperature_c', 'avg') | number:'1.1-1' }}°C
-      </div>
-      <div class="card-stats">
-        <span>Min: {{ getSensorValue('temperature_c', 'min') | number:'1.1-1' }}°C</span>
-        <span>Max: {{ getSensorValue('temperature_c', 'max') | number:'1.1-1' }}°C</span>
-      </div>
-      <div class="alert-badge" *ngIf="isAlert('temperature_c')">⚠️ Alert</div>
-    </div>
+   <!-- Temperature -->
+<div class="card" [class.alert]="isAlert('temperature_c')">
+  <div class="card-icon">🌡️</div>
+  <div class="card-title">Temperature</div>
+  <div class="card-value">
+    {{ getSensorValue('temperature_c', 'avg') | number:'1.1-1' }}°C
+  </div>
+  <div class="card-stats">
+    <span>Min: {{ getSensorValue('temperature_c', 'min') | number:'1.1-1' }}°C</span>
+    <span>Max: {{ getSensorValue('temperature_c', 'max') | number:'1.1-1' }}°C</span>
+  </div>
+<div class="card-threshold">
+  <span class="threshold-label">Alert threshold:</span>
+  <span class="threshold-value">&gt; {{ thresholds['temperature_c'].value }} {{ thresholds['temperature_c'].unit }}</span>
+</div>
+  <div class="alert-badge" *ngIf="isAlert('temperature_c')">⚠️ Alert</div>
+</div>
 
-    <!-- Humidity -->
-    <div class="card" [class.alert]="isAlert('humidity_pct')">
-      <div class="card-icon">💧</div>
-      <div class="card-title">Humidity</div>
-      <div class="card-value">
-        {{ getSensorValue('humidity_pct', 'avg') | number:'1.1-1' }}%
-      </div>
-      <div class="card-stats">
-        <span>Min: {{ getSensorValue('humidity_pct', 'min') | number:'1.1-1' }}%</span>
-        <span>Max: {{ getSensorValue('humidity_pct', 'max') | number:'1.1-1' }}%</span>
-      </div>
-      <div class="alert-badge" *ngIf="isAlert('humidity_pct')">⚠️ Alert</div>
-    </div>
+<!-- Humidity -->
+<div class="card" [class.alert]="isAlert('humidity_pct')">
+  <div class="card-icon">💧</div>
+  <div class="card-title">Humidity</div>
+  <div class="card-value">
+    {{ getSensorValue('humidity_pct', 'avg') | number:'1.1-1' }}%
+  </div>
+  <div class="card-stats">
+    <span>Min: {{ getSensorValue('humidity_pct', 'min') | number:'1.1-1' }}%</span>
+    <span>Max: {{ getSensorValue('humidity_pct', 'max') | number:'1.1-1' }}%</span>
+  </div>
+<div class="card-threshold">
+  <span class="threshold-label">Alert threshold:</span>
+  <span class="threshold-value">&gt; {{ thresholds['humidity_pct'].value }} {{ thresholds['humidity_pct'].unit }}</span>
+</div>
+  <div class="alert-badge" *ngIf="isAlert('humidity_pct')">⚠️ Alert</div>
+</div>
 
-    <!-- CO2 -->
-    <div class="card" [class.alert]="isAlert('co2_ppm')">
-      <div class="card-icon">💨</div>
-      <div class="card-title">CO2 / Air Quality</div>
-      <div class="card-value">
-        {{ getSensorValue('co2_ppm', 'avg') | number:'1.0-0' }} ppm
-      </div>
-      <div class="card-stats">
-        <span>Min: {{ getSensorValue('co2_ppm', 'min') | number:'1.0-0' }}</span>
-        <span>Max: {{ getSensorValue('co2_ppm', 'max') | number:'1.0-0' }}</span>
-      </div>
-      <div class="alert-badge" *ngIf="isAlert('co2_ppm')">⚠️ Alert</div>
-    </div>
+<!-- CO2 -->
+<div class="card" [class.alert]="isAlert('co2_ppm')">
+  <div class="card-icon">💨</div>
+  <div class="card-title">CO₂ / Air Quality</div>
+  <div class="card-value">
+    {{ getSensorValue('co2_ppm', 'avg') | number:'1.0-0' }} ppm
+  </div>
+  <div class="card-stats">
+    <span>Min: {{ getSensorValue('co2_ppm', 'min') | number:'1.0-0' }}</span>
+    <span>Max: {{ getSensorValue('co2_ppm', 'max') | number:'1.0-0' }}</span>
+  </div>
+<div class="card-threshold">
+  <span class="threshold-label">Alert threshold:</span>
+  <span class="threshold-value">&gt; {{ thresholds['co2_ppm'].value }} {{ thresholds['co2_ppm'].unit }}</span>
+</div>
+  <div class="alert-badge" *ngIf="isAlert('co2_ppm')">⚠️ Alert</div>
+</div>
 
-    <!-- PM2.5 -->
-    <div class="card" [class.alert]="isAlert('pm25_ugm3')">
-      <div class="card-icon">🌫️</div>
-      <div class="card-title">PM2.5 Dust</div>
-      <div class="card-value">
-        {{ getSensorValue('pm25_ugm3', 'avg') | number:'1.1-1' }} µg/m³
-      </div>
-      <div class="card-stats">
-        <span>Min: {{ getSensorValue('pm25_ugm3', 'min') | number:'1.1-1' }}</span>
-        <span>Max: {{ getSensorValue('pm25_ugm3', 'max') | number:'1.1-1' }}</span>
-      </div>
-      <div class="alert-badge" *ngIf="isAlert('pm25_ugm3')">⚠️ Alert</div>
-    </div>
+<!-- PM2.5 -->
+<div class="card" [class.alert]="isAlert('pm25_ugm3')">
+  <div class="card-icon">🌫️</div>
+  <div class="card-title">PM2.5 Dust</div>
+  <div class="card-value">
+    {{ getSensorValue('pm25_ugm3', 'avg') | number:'1.1-1' }} µg/m³
+  </div>
+  <div class="card-stats">
+    <span>Min: {{ getSensorValue('pm25_ugm3', 'min') | number:'1.1-1' }}</span>
+    <span>Max: {{ getSensorValue('pm25_ugm3', 'max') | number:'1.1-1' }}</span>
+  </div>
+<div class="card-threshold">
+  <span class="threshold-label">Alert threshold:</span>
+  <span class="threshold-value">&gt; {{ thresholds['pm25_ugm3'].value }} {{ thresholds['pm25_ugm3'].unit }}</span>
+</div>
+  <div class="alert-badge" *ngIf="isAlert('pm25_ugm3')">⚠️ Alert</div>
+</div>
 
   </div>
 

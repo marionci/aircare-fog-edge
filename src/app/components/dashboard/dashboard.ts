@@ -18,6 +18,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   readings: SensorReading[] = [];
   latest: SensorReading | null = null;
 
+  readonly thresholds: Record<string, { value: number; unit: string }> = {
+  temperature_c: { value: 30.0, unit: '°C' },
+  humidity_pct:  { value: 80.0, unit: '%' },
+  co2_ppm:       { value: 1000, unit: 'ppm' },
+  pm25_ugm3:     { value: 35.0, unit: 'µg/m³' }
+};
+
   constructor(private ws: WebsocketService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
